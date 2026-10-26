@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+:root {
+/* Colors — Color Hunt Palette */
+--color-primary: #030164;
+--color-secondary: #363199;
+--color-muted: #2D7495;
+--color-background: #F8F8FC;
+--color-surface: #FFFFFF;
+--color-soft: #E8E085;
+
+/* Spacing */
+--space-1: 4px;
+--space-2: 8px;
+--space-3: 16px;
+--space-4: 24px;
+--space-5: 48px;
+
+/* Typography */
+--font-family: 'Inter', sans-serif;
+
+/* Font sizes */
+--text-xs: 12px;
+--text-sm: 14px;
+--text-base: 16px;
+--text-lg: 24px;
+--text-xl: 40px;
+
+/* Font weights */
+--font-regular: 400;
+--font-semibold: 600;
+
+/* Line height */
+--line-height: 1.4;
+}

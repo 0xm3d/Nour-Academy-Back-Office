@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nour Academy</title>
+    <script type="module" src="/src/main.js"></script>
+</head>
+
+<body class="bg-[var(--color-background)] font-[var(--font-family)]">
+
+    <header class="flex items-center justify-between border-b border-[var(--color-soft)] px-6 py-4 md:px-[60px]">
+        <a href="#">
+            <img src="images/logo.svg" alt="Nour Academy" class="h-7">
+        </a>
+
+        <nav class="flex gap-6 text-xs text-[var(--color-primary)]">
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#centers">Centers</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <a href="#courses" class="rounded-md bg-[var(--color-primary)] px-4 py-3 text-xs text-white">
+            Find a course
+        </a>
+    </header>
+
+    <main>
+        <section class="grid min-h-[85vh] items-center gap-[10px] px-6 py-10 md:grid-cols-2 md:px-[60px]">
+            <div>
+                <p class="mb-6 text-xs font-semibold uppercase text-[var(--color-primary)]">
+                    • Growing together, in Nador
+                </p>
+
+                <h1 class="mb-6 text-4xl font-semibold text-[var(--color-primary)] md:text-[40px]">
+                    The right course to succeed tomorrow
+                </h1>
+
+                <p class="mb-6 text-sm leading-6 text-[var(--color-muted)]">
+                    Small groups, attentive teachers and the joy of making progress.
+                    From middle school to high school, let's find the course that will make the difference.
+                </p>
+
+                <a href="#courses" class="inline-block rounded-md bg-[var(--color-primary)] px-4 py-3 text-sm text-white">
+                    Discover the courses
+                </a>
+
+                <p class="mt-6 mb-0 text-xs text-[var(--color-muted)]">
+                    No registration fees · Payment at the center
+                </p>
+            </div>
+
+            <img src="images/hero.jpg" alt="Student learning" class="w-full rounded-xl">
+        </section>
+
+        <section
+            class="flex flex-wrap items-center justify-around gap-4 bg-[var(--color-soft)] px-6 py-4 text-xs text-[var(--color-primary)]">
+            <p class="flex items-center gap-2">
+                <i class="fa-solid fa-users" aria-hidden="true"></i>
+                Small groups, big progress
+            </p>
+
+            <p class="flex items-center gap-2">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                3 centers near you
+            </p>
+
+            <p class="flex items-center gap-2">
+                <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+                Follow-up for every student
+            </p>
+        </section>
+
+        <section id="courses" class="px-6 py-10 md:px-[60px]">
+
+            <p class="mb-3 text-xs font-semibold uppercase text-[var(--color-primary)]">
+                01 / Find your path
+            </p>
+
+            <h2 class="mb-2 text-3xl font-semibold text-[var(--color-primary)]">
+                A course for every spark.
+            </h2>
+
+            <p class="mb-6 text-sm text-[var(--color-muted)]">
+                Choose your tutoring courses. We take care of the rest.
+            </p>
+
+            <!-- Filters -->
+            <div class="grid grid-cols-1 items-end gap-3 md:grid-cols-[1fr_auto_auto]">
+
+                <div>
+                    <label for="search" class="mb-2 block text-xs font-medium text-[var(--color-primary)]">
+                        Search for a course
+                    </label>
+                    <div
+                        class="flex items-center gap-3 rounded-lg border border-[var(--color-secondary)] bg-[var(--color-surface)] px-3 py-3">
+                        <i class="fa-solid fa-magnifying-glass text-[var(--color-muted)]" aria-hidden="true"></i>
+                        <input id="search" type="search" placeholder="E.g.: mathematics..."
+                            class="w-full bg-transparent text-sm text-[var(--color-primary)] outline-none placeholder:text-[var(--color-muted)]">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="level" class="mb-2 block text-xs font-medium text-[var(--color-primary)]">
+                        School level
+                    </label>
+                    <select id="level"
+                        class="w-full rounded-lg border border-[var(--color-soft)] bg-[var(--color-surface)] px-3 py-3 text-sm text-[var(--color-muted)] outline-none focus:border-[var(--color-secondary)]">
+                        <option value="">All levels</option>
+                        <option value="Primary">Primary</option>
+                        <option value="Middle School">Middle School</option>
+                        <option value="High School">High School</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="subject" class="mb-2 block text-xs font-medium text-[var(--color-primary)]">
+                        Subject
+                    </label>
+                    <select id="subject"
+                        class="w-full rounded-lg border border-[var(--color-soft)] bg-[var(--color-surface)] px-3 py-3 text-sm text-[var(--color-muted)] outline-none focus:border-[var(--color-secondary)]">
+                        <option value="">All subjects</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="French">French</option>
+                        <option value="Physics-Chemistry">Physics-Chemistry</option>
+                        <option value="English">English</option>
+                        <option value="Arabic">Arabic</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Courses + cart -->
+            <div class="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
+
+                <!-- Courses -->
+                <div>
+                    <p id="counter" class="text-sm text-[var(--color-muted)]"></p>
+
+                    <div id="catalog" class="mt-4 grid gap-4 md:grid-cols-2"></div>
+
+                    <p id="no-results" class="mt-4 hidden text-sm text-[var(--color-muted)]">
+                        No course matches your search.
+                    </p>
+                </div>
+
+                <!-- Cart -->
+                <aside class="h-fit rounded-2xl border border-[var(--color-primary)] bg-[var(--color-accent)] p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-[var(--color-primary)]">My selection</h3>
+                        <span id="cart-count"
+                            class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-primary)] text-xs text-white">0</span>
+                    </div>
+
+                    <p id="cart-empty" class="mt-4 text-sm text-[var(--color-muted)]">
+                        No course selected.
+                    </p>
+
+                    <div id="cart-list" class="mt-4"></div>
+
+                    <p class="mt-6 text-xl text-[var(--color-primary)]">
+                        Total: <span id="cart-total">0</span> MAD
+                    </p>
+
+                    <button id="cart-submit" disabled
+                        class="mt-6 block w-full rounded-lg bg-[var(--color-primary)] px-4 py-3 text-center text-sm text-white disabled:opacity-50">
+                        Go to enrollment
+                    </button>
+
+                    <p class="mt-4 text-xs text-[var(--color-muted)]">
+                        No online payment. Our team will confirm your place.
+                    </p>
+                </aside>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
