@@ -19,7 +19,6 @@
             <a href="#home">Home</a>
             <a href="#courses">Courses</a>
             <a href="#centers">Centers</a>
-            <a href="#contact">Contact</a>
         </nav>
 
         <a href="#courses" class="rounded-md bg-[var(--color-primary)] px-4 py-3 text-xs text-white">
@@ -28,7 +27,7 @@
     </header>
 
     <main>
-        <section class="grid min-h-[85vh] items-center gap-[10px] px-6 py-10 md:grid-cols-2 md:px-[60px]">
+        <section id="home" class="grid min-h-[85vh] items-center gap-[10px] px-6 py-10 md:grid-cols-2 md:px-[60px]">
             <div>
                 <p class="mb-6 text-xs font-semibold uppercase text-[var(--color-primary)]">
                     • Growing together, in Nador
@@ -40,10 +39,11 @@
 
                 <p class="mb-6 text-sm leading-6 text-[var(--color-muted)]">
                     Small groups, attentive teachers and the joy of making progress.
-                    From middle school to high school, let's find the course that will make the difference.
+                    From middle school to high school, let’s find the course that will make the difference.
                 </p>
 
-                <a href="#courses" class="inline-block rounded-md bg-[var(--color-primary)] px-4 py-3 text-sm text-white">
+                <a href="#courses"
+                    class="inline-block rounded-md bg-[var(--color-primary)] px-4 py-3 text-sm text-white">
                     Discover the courses
                 </a>
 
@@ -52,10 +52,10 @@
                 </p>
             </div>
 
-            <img src="images/hero.jpg" alt="Student learning" class="w-full rounded-xl">
+            <img src="images/hero.png" alt="Student studying" class="w-full rounded-xl">
         </section>
 
-        <section
+        <section id="centers"
             class="flex flex-wrap items-center justify-around gap-4 bg-[var(--color-soft)] px-6 py-4 text-xs text-[var(--color-primary)]">
             <p class="flex items-center gap-2">
                 <i class="fa-solid fa-users" aria-hidden="true"></i>
@@ -80,11 +80,11 @@
             </p>
 
             <h2 class="mb-2 text-3xl font-semibold text-[var(--color-primary)]">
-                A course for every spark.
+                A course for every ambition.
             </h2>
 
             <p class="mb-6 text-sm text-[var(--color-muted)]">
-                Choose your tutoring courses. We take care of the rest.
+                Choose your tutoring courses. We’ll support you with the next steps.
             </p>
 
             <!-- Filters -->
@@ -97,7 +97,7 @@
                     <div
                         class="flex items-center gap-3 rounded-lg border border-[var(--color-secondary)] bg-[var(--color-surface)] px-3 py-3">
                         <i class="fa-solid fa-magnifying-glass text-[var(--color-muted)]" aria-hidden="true"></i>
-                        <input id="search" type="search" placeholder="E.g.: mathematics..."
+                        <input id="search" type="search" placeholder="E.g.: mathematics…"
                             class="w-full bg-transparent text-sm text-[var(--color-primary)] outline-none placeholder:text-[var(--color-muted)]">
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                     <div id="cart-list" class="mt-4"></div>
 
                     <p class="mt-6 text-xl text-[var(--color-primary)]">
-                        Total: <span id="cart-total">0</span> MAD
+                        Total: <span id="cart-total">0</span> MAD / month
                     </p>
 
                     <button id="cart-submit" disabled
@@ -178,7 +178,182 @@
 
         </section>
 
+        <section id="enrollment" class="p-[24px]">
+            <span id="contact"></span>
+            <h2 class="text-[24px] font-semibold mb-[16px] text-center">Enrollment</h2>
+            <div id="registration-summary"
+                class="hidden max-w-[448px] mx-auto mb-6 rounded-lg border border-green-600 bg-white p-4 text-green-700"
+                role="status">
+                <h3 class="font-semibold">Enrollment confirmed!</h3>
+                <p id="registration-summary-text" class="mt-2 text-sm"></p>
+            </div>
+
+            <form id="enroll-form" novalidate class="flex flex-col gap-[16px] max-w-[448px] mx-auto">
+
+                <div>
+                    <label for="parent-name">Parent’s name</label>
+                    <input id="parent-name" type="text"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="parent-name-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="email">Email address</label>
+                    <input id="email" type="email"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="email-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="phone">Mobile phone</label>
+                    <input id="phone" type="tel"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="phone-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="student-name">Student’s first name</label>
+                    <input id="student-name" type="text"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="student-name-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="student-level">Student’s level</label>
+                    <select id="student-level"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                        <option value="">Choose a level</option>
+                        <option value="Primary">Primary</option>
+                        <option value="Middle School">Middle School</option>
+                        <option value="High School">High School</option>
+                    </select>
+                    <p id="student-level-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" type="password"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="password-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <label for="confirm-password">Confirm password</label>
+                    <input id="confirm-password" type="password"
+                        class="block w-full h-[44px] border-[2px] border-gray-300 rounded-[4px] px-[8px]">
+                    <p id="confirm-password-msg" class="text-[14px]"></p>
+                </div>
+
+                <div>
+                    <input id="consent" type="checkbox" class="w-[24px] h-[24px] border-[2px] border-gray-300">
+                    <label for="consent">I agree that Nour Academy may use this information to process my
+                        enrollment.</label>
+                    <p id="consent-msg" class="text-[14px]"></p>
+                    <p class="text-[12px] text-gray-600">
+                        Your data is used only to process your request, in accordance with Law 09-08.
+                    </p>
+                </div>
+
+                <p id="selection-error" class="text-[14px] text-red-600" role="alert"></p>
+
+                <button type="submit" class="min-h-[44px] bg-blue-900 text-white rounded-[4px] px-4">
+                    Submit my enrollment
+                </button>
+
+            </form>
+        </section>
+        
+        <section id="centers" class="px-6 py-10 md:px-[60px]">
+
+            <p class="mb-3 text-xs font-semibold uppercase text-[var(--color-primary)]">
+                03 / Right near you
+            </p>
+
+            <h2 class="mb-2 text-4xl text-[var(--color-primary)]">
+                Three centers. The same commitment.
+            </h2>
+
+            <p class="mb-8 text-sm text-[var(--color-primary)]">
+                A welcoming place, an attentive team and good habits for learning.
+            </p>
+
+            <div class="grid gap-4 md:grid-cols-3">
+
+                <article class="rounded-2xl border border-[var(--color-accent)] p-6">
+                    <div
+                        class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-primary)]">
+                        <i class="fa-solid fa-landmark" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="mb-4 text-2xl text-[var(--color-primary)]">Nador Centre</h3>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">In the heart of the city</p>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">12, Mohammed V Avenue, Nador</p>
+                    <p class="mb-6 text-xs text-[var(--color-primary)]">Mon–Sat · 9am–7pm</p>
+                </article>
+
+
+                <article class="rounded-2xl border border-[var(--color-accent)] p-6">
+                    <div
+                        class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-primary)]">
+                        <i class="fa-solid fa-tree" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="mb-4 text-2xl text-[var(--color-primary)]">Hay Al Matar</h3>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">A calm setting for learning</p>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">24, Schools Street, Hay Al Matar</p>
+                    <p class="mb-6 text-xs text-[var(--color-primary)]">Mon–Sat · 10am–8pm</p>
+                </article>
+
+
+                <article class="rounded-2xl border border-[var(--color-accent)] p-6">
+                    <div
+                        class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-primary)]">
+                        <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="mb-4 text-2xl text-[var(--color-primary)]">Selouane</h3>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">Very close to home</p>
+                    <p class="mb-3 text-xs text-[var(--color-primary)]">8, Al Amal Avenue, Selouane</p>
+                    <p class="mb-6 text-xs text-[var(--color-primary)]">Mon–Sat · 9am–6pm</p>
+                </article>
+
+            </div>
+
+
+
+        </section>
+
+
     </main>
+
+    <footer id="contact" class="bg-[var(--color-primary)] px-6 py-10 text-white md:px-[60px]">
+
+        <div class="grid gap-8 md:grid-cols-3">
+
+            <div>
+                <div class="mb-4 flex items-center gap-3">
+                    <div
+                        class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-primary)]">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                    </div>
+                    <p class="text-2xl font-semibold">nour <span class="text-xs font-normal uppercase">Academy</span>
+                    </p>
+                </div>
+                <p class="text-sm">A little confidence today. New possibilities tomorrow.</p>
+            </div>
+
+            <div>
+                <p class="mb-2 text-xs font-semibold uppercase">Let’s talk about their success</p>
+                <a href="tel:+212536601234" class="mb-2 block text-3xl font-semibold">05 36 60 12 34</a>
+                <a href="mailto:contact@nour-academy.ma" class="text-sm underline">contact@nour-academy.ma</a>
+            </div>
+
+            <nav class="flex flex-col gap-2 text-sm md:items-end">
+                <a href="#home">Home</a>
+                <a href="#courses">Courses</a>
+                <a href="#centers">Centers</a>
+            </nav>
+
+        </div>
+
+    </footer>
 
 </body>
 

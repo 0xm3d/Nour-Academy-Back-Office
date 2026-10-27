@@ -14,8 +14,6 @@ let cartEmpty = document.getElementById("cart-empty");
 let cartCount = document.getElementById("cart-count");
 let cartTotal = document.getElementById("cart-total");
 let cartSubmit = document.getElementById("cart-submit");
-
-// courses the parent picked
 let selected = [];
 
 function showCourses() {
@@ -23,28 +21,24 @@ function showCourses() {
   let chosenSubject = subjectSelect.value;
   let search = searchInput.value.toLowerCase().trim();
   let count = 0;
-
   catalog.innerHTML = "";
 
   for (let i = 0; i < courses.length; i++) {
     let c = courses[i];
-
-    if (chosenLevel != "" && c.level != chosenLevel) continue;
-
-    if (chosenSubject != "" && c.subject != chosenSubject) continue;
+    if (chosenLevel !== "" && c.level !== chosenLevel) continue;
+    if (chosenSubject !== "" && c.subject !== chosenSubject) continue;
 
     let text = (c.title + " " + c.subject).toLowerCase();
     if (!text.includes(search)) continue;
-
     count++;
 
     let seats = c.seatsRemaining + " seats left";
-    let buttonText = "Select this course";
+    let buttonText = "Add to my selection";
     let disabled = "";
 
     if (c.seatsRemaining === 0) {
       seats = "Full";
-      buttonText = "Selection unavailable";
+      buttonText = "Course full";
       disabled = "disabled";
     }
 
@@ -64,51 +58,40 @@ function showCourses() {
       </article>`;
   }
 
-  counter.textContent = count + " courses found";
-
-  if (count === 0) {
-    noResult.classList.remove("hidden");
-  } else {
-    noResult.classList.add("hidden");
-  }
+  counter.textContent = count + (count === 1 ? " course found" : " courses found");
+  noResult.classList.toggle("hidden", count !== 0);
 }
 
 function addCourse(id) {
-  // already in the cart, do nothing
   for (let i = 0; i < selected.length; i++) {
     if (selected[i].id === id) return;
   }
 
   for (let i = 0; i < courses.length; i++) {
-    // a full course can't be added
     if (courses[i].id === id && courses[i].seatsRemaining > 0) {
       selected.push(courses[i]);
     }
   }
-
   showCart();
 }
 
 function removeCourse(id) {
-  // keep everything except the course we remove
   let newList = [];
-
   for (let i = 0; i < selected.length; i++) {
     if (selected[i].id !== id) newList.push(selected[i]);
   }
-
   selected = newList;
   showCart();
 }
 
 function showCart() {
   let total = 0;
+  if (selected.length > 0) document.getElementById("selection-error").textContent = "";
   cartList.innerHTML = "";
 
   for (let i = 0; i < selected.length; i++) {
     let c = selected[i];
     total += c.price;
-
     cartList.innerHTML += `
       <div class="mb-3 flex items-start justify-between gap-3">
         <div>
@@ -124,21 +107,15 @@ function showCart() {
 
   cartCount.textContent = selected.length;
   cartTotal.textContent = total;
-
-  if (selected.length === 0) {
-    cartEmpty.classList.remove("hidden");
-    cartSubmit.disabled = true;
-  } else {
-    cartEmpty.classList.add("hidden");
-    cartSubmit.disabled = false;
-  }
+  cartEmpty.classList.toggle("hidden", selected.length !== 0);
+  cartSubmit.disabled = selected.length === 0;
 }
 
 levelSelect.addEventListener("change", showCourses);
 subjectSelect.addEventListener("change", showCourses);
 searchInput.addEventListener("input", showCourses);
 
-// one listener on the container, so it still works after a filter
+// One listener handles all course buttons, even after filtering.
 catalog.addEventListener("click", function (event) {
   let button = event.target.closest("[data-action='add']");
   if (button) addCourse(Number(button.dataset.id));
@@ -147,6 +124,16 @@ catalog.addEventListener("click", function (event) {
 cartList.addEventListener("click", function (event) {
   let button = event.target.closest("[data-action='remove']");
   if (button) removeCourse(Number(button.dataset.id));
+});
+
+cartSubmit.addEventListener("click", function () {
+  document.getElementById("enrollment").scrollIntoView({ behavior: "smooth" });
+});
+
+document.addEventListener("registration-success", function () {
+  selected = [];
+  showCart();
+  showCourses();
 });
 
 showCourses();
