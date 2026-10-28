@@ -36,16 +36,17 @@ function showCourses() {
     // search: is what the user typed inside the title?
     let text = (c.title + " " + c.subject).toLowerCase();
     if (!text.includes(search)) continue;
+
     count++;
 
     // normal case, changed below if the course is full
     let seats = c.seatsRemaining + " seats left";
-    let buttonText = "Add to my selection";
+    let buttonText = "Select this course";
     let disabled = "";
 
     if (c.seatsRemaining === 0) {
       seats = "Full";
-      buttonText = "Course full";
+      buttonText = "Selection unavailable";
       disabled = "disabled";
     }
 
@@ -73,24 +74,30 @@ function showCourses() {
 
 // add a course to the cart (not twice, not if full)
 function addCourse(id) {
+  // already in the cart, do nothing
   for (let i = 0; i < selected.length; i++) {
     if (selected[i].id === id) return;
   }
 
   for (let i = 0; i < courses.length; i++) {
+    // a full course can't be added
     if (courses[i].id === id && courses[i].seatsRemaining > 0) {
       selected.push(courses[i]);
     }
   }
+
   showCart();
 }
 
 // remove a course from the cart
 function removeCourse(id) {
+  // keep everything except the course we remove
   let newList = [];
+
   for (let i = 0; i < selected.length; i++) {
     if (selected[i].id !== id) newList.push(selected[i]);
   }
+
   selected = newList;
   showCart();
 }
@@ -98,12 +105,12 @@ function removeCourse(id) {
 // redraws the cart: rows, total, count
 function showCart() {
   let total = 0;
-  if (selected.length > 0) document.getElementById("selection-error").textContent = "";
   cartList.innerHTML = "";
 
   for (let i = 0; i < selected.length; i++) {
     let c = selected[i];
     total += c.price;
+
     cartList.innerHTML += `
       <div class="mb-3 flex items-start justify-between gap-3">
         <div>
@@ -119,8 +126,14 @@ function showCart() {
 
   cartCount.textContent = selected.length;
   cartTotal.textContent = total;
-  cartEmpty.classList.toggle("hidden", selected.length !== 0);
-  cartSubmit.disabled = selected.length === 0;
+
+  if (selected.length === 0) {
+    cartEmpty.classList.remove("hidden");
+    cartSubmit.disabled = true;
+  } else {
+    cartEmpty.classList.add("hidden");
+    cartSubmit.disabled = false;
+  }
 }
 
 
@@ -129,7 +142,7 @@ levelSelect.addEventListener("change", showCourses);
 subjectSelect.addEventListener("change", showCourses);
 searchInput.addEventListener("input", showCourses);
 
-// One listener handles all course buttons, even after filtering.
+// one listener on the container, so it still works after a filter
 catalog.addEventListener("click", function (event) {
   let button = event.target.closest("[data-action='add']");
   if (button) addCourse(Number(button.dataset.id));
