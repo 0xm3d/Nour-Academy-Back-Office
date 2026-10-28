@@ -2,6 +2,7 @@ import "../styles/styles.css";
 import { courses } from "./courses.js";
 import "./form.js";
 
+// grab the elements from the page
 let catalog = document.getElementById("catalog");
 let counter = document.getElementById("counter");
 let noResult = document.getElementById("no-results");
@@ -14,30 +15,31 @@ let cartEmpty = document.getElementById("cart-empty");
 let cartCount = document.getElementById("cart-count");
 let cartTotal = document.getElementById("cart-total");
 let cartSubmit = document.getElementById("cart-submit");
-
-// courses the parent picked
+// the cart, starts empty
 let selected = [];
 
+// draws the cards that match the filters
 function showCourses() {
   let chosenLevel = levelSelect.value;
   let chosenSubject = subjectSelect.value;
   let search = searchInput.value.toLowerCase().trim();
   let count = 0;
-
+  // clear the old cards first
   catalog.innerHTML = "";
 
   for (let i = 0; i < courses.length; i++) {
     let c = courses[i];
+    // skip the course if it doesn't match a filter
+    if (chosenLevel !== "" && c.level !== chosenLevel) continue;
+    if (chosenSubject !== "" && c.subject !== chosenSubject) continue;
 
-    if (chosenLevel != "" && c.level != chosenLevel) continue;
-
-    if (chosenSubject != "" && c.subject != chosenSubject) continue;
-
+    // search: is what the user typed inside the title?
     let text = (c.title + " " + c.subject).toLowerCase();
     if (!text.includes(search)) continue;
 
     count++;
 
+    // normal case, changed below if the course is full
     let seats = c.seatsRemaining + " seats left";
     let buttonText = "Select this course";
     let disabled = "";
@@ -48,11 +50,12 @@ function showCourses() {
       disabled = "disabled";
     }
 
+    // add one card
     catalog.innerHTML += `
-      <article class="flex flex-col gap-2 rounded-xl border border-[var(--color-soft)] bg-white p-5">
+      <article class="flex flex-col gap-2 rounded-xl border border-[var(--color-soft)] bg-white p-5 hover:translate-y-1 hover:shadow-2xl">
         <span class="self-end rounded-full bg-[var(--color-soft)] px-3 py-1 text-xs">${seats}</span>
         <p class="text-xs font-semibold text-[var(--color-muted)]">${c.subject}</p>
-        <h3 class="text-xl font-semibold text-[var(--color-primary)]">${c.title}</h3>
+        <h3 class="text-[20px] font-semibold text-[var(--color-primary)]">${c.title}</h3>
         <p class="text-sm">${c.level}</p>
         <p class="text-sm">${c.schedule}</p>
         <p class="text-sm">${c.center}</p>
@@ -64,15 +67,12 @@ function showCourses() {
       </article>`;
   }
 
-  counter.textContent = count + " courses found";
-
-  if (count === 0) {
-    noResult.classList.remove("hidden");
-  } else {
-    noResult.classList.add("hidden");
-  }
+  // show the number of results (and the message if there are none)
+  counter.textContent = count + (count === 1 ? " course found" : " courses found");
+  noResult.classList.toggle("hidden", count !== 0);
 }
 
+// add a course to the cart (not twice, not if full)
 function addCourse(id) {
   // already in the cart, do nothing
   for (let i = 0; i < selected.length; i++) {
@@ -89,6 +89,7 @@ function addCourse(id) {
   showCart();
 }
 
+// remove a course from the cart
 function removeCourse(id) {
   // keep everything except the course we remove
   let newList = [];
@@ -101,6 +102,7 @@ function removeCourse(id) {
   showCart();
 }
 
+// redraws the cart: rows, total, count
 function showCart() {
   let total = 0;
   cartList.innerHTML = "";
@@ -116,7 +118,7 @@ function showCart() {
           <p class="text-xs text-[var(--color-muted)]">${c.price} MAD / month</p>
         </div>
         <button type="button" data-action="remove" data-id="${c.id}"
-          class="min-h-11 px-2 text-xs text-[var(--color-primary)] underline">
+          class="min-h-11 px-2 text-red-500 text-xs text-[var(--color-primary)] underline">
           Remove
         </button>
       </div>`;
@@ -134,6 +136,8 @@ function showCart() {
   }
 }
 
+
+// redraw when a filter changes
 levelSelect.addEventListener("change", showCourses);
 subjectSelect.addEventListener("change", showCourses);
 searchInput.addEventListener("input", showCourses);
@@ -149,5 +153,17 @@ cartList.addEventListener("click", function (event) {
   if (button) removeCourse(Number(button.dataset.id));
 });
 
+cartSubmit.addEventListener("click", function () {
+  document.getElementById("enrollment").scrollIntoView({ behavior: "smooth" });
+});
+
+// form.js says the enrollment worked, so empty the cart
+document.addEventListener("registration-success", function () {
+  selected = [];
+  showCart();
+  showCourses();
+});
+
+// first draw when the page loads
 showCourses();
 showCart();
