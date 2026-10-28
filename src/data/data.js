@@ -33,3 +33,4 @@ export const inscriptions = [
   { id: 25, dossier: "NA-2025-011", student: "Adam Zerouali", level: "High School", courseId: 10, course: "Physics-Chemistry — Common Core", phone: "0610099887", status: "Pending", date: "2025-10-10" }
 ];
 
+localStorage.setItem("inscriptions", JSON.stringify(inscriptions));
