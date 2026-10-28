@@ -7,17 +7,38 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <main>
-        <!-- Dashboard Fillters -Fatima -->
+    
+<!-- Dashboard content -->
+<main class="p-6">
 
+    <h1 class="mb-4 text-2xl font-bold">
+        Registrations
+    </h1>
 
+    <p id="registrations-count" class="mb-4 text-sm text-gray-500">
+        Loading registrations...
+    </p>
 
-        <!-- End of dashboard fillters -->
+    <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
+        <table class="w-full min-w-[768px] text-left">
+            <thead class="bg-[var(--color-soft)] text-xs uppercase ">
+                <tr>
+                    <th class="px-4 py-3">File no.</th>
+                    <th class="px-4 py-3">Student</th>
+                    <th class="px-4 py-3">Level</th>
+                    <th class="px-4 py-3">Course</th>
+                    <th class="px-4 py-3">Parent phone</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Date</th>
+                </tr>
+            </thead>
 
-        <!-- Dashboard content -  Med -->
+            <tbody id="registrations-body"></tbody>
+        </table>
+    </div>
+</main>
 
-
-        <!-- End of dashboard content -->
+<script type="module" src="/src/ui/table.js"></script>
 
 
     </main>
