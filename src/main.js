@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import { courses } from "./courses.js";
+import { courses } from "./data/courses.js";
 import "./form.js";
 
 // grab the elements from the page

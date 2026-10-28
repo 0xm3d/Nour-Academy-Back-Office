@@ -1,16 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nour Academy | Dashboard</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script type="module" src="src/ui/table.js"></script>
 </head>
-
 <body>
-    <main class="mx-auto max-w-7xl p-6">
+    
+<!-- Dashboard content -->
+<main class="p-6">
 
         <!-- Dashboard Filters - Fatima -->
         <section class="rounded-xl bg-[#f7f6ed] p-6">
@@ -82,12 +82,39 @@
         </section>
         <!-- End of Dashboard Filters -->
 
-        <!-- Dashboard Content - Med -->
 
-        <!-- End of Dashboard Content -->
 
-    </main>
+
+
+    <section>
+        <h1 class="mb-4 text-2xl font-bold">
+        Registrations
+    </h1>
+
+    <p id="registrations-count" class="mb-4 text-sm text-gray-500">
+        Loading registrations...
+    </p>
+
+    <div class="overflow-x->auto rounded-xl border border-[var(--color-soft)] bg-white">
+        <table class="w-full min-w-[768px] text-left">
+            <thead class="bg-[var(--color-soft)] text-xs uppercase">
+                <tr>
+                    <th class="px-4 py-3">File no.</th>
+                    <th class="px-4 py-3">Student</th>
+                    <th class="px-4 py-3">Level</th>
+                    <th class="px-4 py-3">Course</th>
+                    <th class="px-4 py-3">Parent phone</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="registrations-body"></tbody>
+        </table>
+    </div>
+    </section>
+
+</main>
+
 </body>
-
-</html>
 </html>
