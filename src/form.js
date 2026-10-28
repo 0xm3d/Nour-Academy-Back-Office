@@ -1,3 +1,4 @@
+// grab the form fields
 let form = document.getElementById("enroll-form");
 let parentName = document.getElementById("parent-name");
 let email = document.getElementById("email");
@@ -11,6 +12,7 @@ let selectionError = document.getElementById("selection-error");
 let summary = document.getElementById("registration-summary");
 let summaryText = document.getElementById("registration-summary-text");
 
+// shows the message and the green/red border, returns true if valid
 function show(input, ok, text) {
   let msg = document.getElementById(input.id + "-msg");
   msg.textContent = text;
@@ -20,17 +22,20 @@ function show(input, ok, text) {
   return ok;
 }
 
+// one check per field
 function checkParentName() {
-  if (parentName.value.trim().length < 2) return show(parentName, false, "Enter the parent's name.");
+  if (parentName.value.trim().length < 4) return show(parentName, false, "Enter the parent's name.");
   return show(parentName, true, "Valid name.");
 }
 
+// email: something@something.something
 function checkEmail() {
   let ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
   if (!ok) return show(email, false, "Invalid email address. Example: name@example.com");
   return show(email, true, "Valid email address.");
 }
 
+// phone: 06/07 + 8 digits, or +212 6/7 + 8 digits
 function checkPhone() {
   let number = phone.value.replace(/\s/g, "");
   let ok = /^(0[67][0-9]{8}|\+212[67][0-9]{8})$/.test(number);
@@ -39,7 +44,7 @@ function checkPhone() {
 }
 
 function checkStudentName() {
-  if (studentName.value.trim().length < 2) return show(studentName, false, "Enter the student's first name.");
+  if (studentName.value.trim().length < 4) return show(studentName, false, "Enter the student's first name.");
   return show(studentName, true, "Valid first name.");
 }
 
@@ -60,6 +65,7 @@ function checkConsent() {
   return show(consent, true, "Thank you for your consent.");
 }
 
+// check while the user types
 parentName.addEventListener("input", checkParentName);
 email.addEventListener("input", checkEmail);
 phone.addEventListener("input", checkPhone);
@@ -71,6 +77,7 @@ password.addEventListener("input", function () {
 confirmPassword.addEventListener("input", checkConfirmPassword);
 consent.addEventListener("change", checkConsent);
 
+// when the form is submitted
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   summary.classList.add("hidden");
@@ -85,6 +92,7 @@ form.addEventListener("submit", function (event) {
   if (!checkConfirmPassword()) return confirmPassword.focus();
   if (!checkConsent()) return consent.focus();
 
+  // no course selected, stop here
   let count = Number(document.getElementById("cart-count").textContent);
   if (count === 0) {
     selectionError.textContent = "Add at least one course to your selection before submitting the enrollment.";
@@ -92,6 +100,7 @@ form.addEventListener("submit", function (event) {
     return;
   }
 
+  // build the confirmation message
   let student = studentName.value.trim();
   let level = studentLevel.options[studentLevel.selectedIndex].text;
   let selectedCourses = [];
@@ -105,6 +114,7 @@ form.addEventListener("submit", function (event) {
   summaryText.textContent = "Enrollment " + registrationNumber + " confirmed. Student: " + student + " (" + level + "). Courses: " + selectedCourses.join(", ") + ". Total: " + total + " MAD / month.";
   summary.classList.remove("hidden");
 
+  // empty the form and remove the red/green borders
   form.reset();
   let inputs = [parentName, email, phone, studentName, studentLevel, password, confirmPassword, consent];
   for (let i = 0; i < inputs.length; i++) {
@@ -115,5 +125,6 @@ form.addEventListener("submit", function (event) {
     msg.className = "text-[14px]";
   }
 
+  // tell main.js to empty the cart
   document.dispatchEvent(new Event("registration-success"));
 });
