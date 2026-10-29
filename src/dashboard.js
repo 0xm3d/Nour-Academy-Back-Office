@@ -19,6 +19,9 @@ const dateInput = document.getElementById("edit-date");
 const searchInput = document.getElementById("search");
 const statusFilter = document.getElementById("status-filter");
 const sortBy = document.getElementById("sort-by");
+const prevButton=document.getElementById("prev-page");
+const nextButton=document.getElementById("next-page")
+const pageInfo=document.getElementById("page-info")
 const newRegistrationButton = document.getElementById("new-registration");
 const newRegistrationDialog = document.getElementById("new-registration-dialog");
 const cancelNewRegistrationButton = document.getElementById("cancel-new-registration");
@@ -75,6 +78,10 @@ newRegistrationForm.addEventListener("submit", (event) => {
     newRegistrationForm.reset();
     newRegistrationDialog.close();
 });
+//pagination- 10 page pour tout page
+let currentPage=1
+const itemsPerPage=10
+
 let registrations = loadInscriptions();
 let editingRegistrationId = null;
 
@@ -88,14 +95,32 @@ function renderDashboard() {
     count.textContent = `${registrations.length} registrations`;
     summary.textContent = `${registrations.length} registrations across the 3 centers`;
     filterRegistrations();
-    console.log("Search:", searchValue);
-    console.log("Names:", registrations.map(r => r.student));
-    console.log("Selected status:", selectedStatus);
+    
 }
 
 
 // Open the form with the selected student's current registration data.
 body.addEventListener("click", (event) => {
+    //delete registration
+    const deleteButton=event.target.closest("[data-action='delete']")
+    if(deleteButton){
+        const registrationId=Number(deleteButton.dataset.id)
+        const confirmed=confirm("Are you want to delete this registration?")
+        if(!confirmed) return
+        registrations=registrations.filter(
+            (registration)=>registration.id !=registrationId
+
+        )
+        saveInscriptions(registrations)
+        renderDashboard()
+        return
+
+
+
+    }
+
+
+    //edit registration
     const editButton = event.target.closest("[data-action='edit']");
     if (!editButton) return;
 
@@ -200,12 +225,56 @@ function filterRegistrations() {
             new Date(a.date) - new Date(b.date)
         );
     }
+    // Calculate pagination
+const totalPages = Math.max(1, Math.ceil(results.length / itemsPerPage));
 
-    renderRegistration(results);
+if (currentPage > totalPages) {
+    currentPage = totalPages;
 }
 
-searchInput.addEventListener("input", filterRegistrations);
-statusFilter.addEventListener("change", filterRegistrations);
-sortBy.addEventListener("change", filterRegistrations);
+const startIndex = (currentPage - 1) * itemsPerPage;
+const paginatedResults = results.slice(
+    startIndex,
+    startIndex + itemsPerPage
+);
+
+// Display current page
+renderRegistration(paginatedResults);
+
+// Update pagination controls
+pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+prevButton.disabled = currentPage === 1;
+nextButton.disabled = currentPage === totalPages;
+
+}
+// Pagination buttons
+prevButton.addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        filterRegistrations();
+    }
+});
+
+nextButton.addEventListener("click", () => {
+    currentPage++;
+    filterRegistrations();
+});
+
+// Reset to page 1 when searching or filtering
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    filterRegistrations();
+});
+
+statusFilter.addEventListener("change", () => {
+    currentPage = 1;
+    filterRegistrations();
+});
+
+sortBy.addEventListener("change", () => {
+    currentPage = 1;
+    filterRegistrations();
+});
+
 
 renderDashboard();
