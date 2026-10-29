@@ -16,6 +16,9 @@ const levelInput = document.getElementById("edit-level");
 const courseInput = document.getElementById("edit-course");
 const statusInput = document.getElementById("edit-status");
 const dateInput = document.getElementById("edit-date");
+const searchInput = document.getElementById("search");
+const statusFilter = document.getElementById("status-filter");
+const sortBy = document.getElementById("sort-by");
 
 let registrations = loadInscriptions();
 let editingRegistrationId = null;
@@ -29,7 +32,7 @@ courseInput.innerHTML = courses.map((course) =>
 function renderDashboard() {
     count.textContent = `${registrations.length} registrations`;
     summary.textContent = `${registrations.length} registrations across the 3 centers`;
-    renderTable(registrations);
+    filterRegistrations();
 }
 
 // Open the form with the selected student's current registration data.
@@ -92,40 +95,10 @@ resetButton.addEventListener("click", () => {
     renderDashboard();
 });
 
-renderDashboard();
-
-
-
-
-
-
-
-
-
-const searchInput = document.getElementById("search");
-const registrationsBody = document.getElementById("registrations-body");
-const registrationsCount = document.getElementById("registrations-count");
-const statusFilter = document.getElementById("status-filter");
-const sortBy = document.getElementById("sort-by");
-
 // Afficher les inscriptions dans le tableau
 function renderRegistration(liste) {
-    const lignes = liste.map((inscription) => {
-        return `
-            <tr>
-                <td class="px-4 py-3">${inscription.dossier}</td>
-                <td class="px-4 py-3">${inscription.student}</td>
-                <td class="px-4 py-3">${inscription.level}</td>
-                <td class="px-4 py-3">${inscription.course}</td>
-                <td class="px-4 py-3">${inscription.phone}</td>
-                <td class="px-4 py-3">${inscription.status}</td>
-                <td class="px-4 py-3">${inscription.date}</td>
-            </tr>
-        `;
-    });
-
-    registrationsBody.innerHTML = lignes.join("");
-    registrationsCount.textContent = `${liste.length} registrations`;
+    renderTable(liste);
+    count.textContent = `${liste.length} registrations`;
 }
 
 // Recherche + filtre Status + tri
@@ -135,7 +108,7 @@ function filterRegistrations() {
     const selectedSort = sortBy.value;
 
     // Recherche par nom ou téléphone
-    let results = inscriptions.filter((inscription) => {
+    let results = registrations.filter((inscription) => {
         const matchesSearch =
             inscription.student.toLowerCase().includes(searchValue) ||
             inscription.phone.includes(searchValue);
@@ -172,10 +145,8 @@ function filterRegistrations() {
     renderRegistration(results);
 }
 
-// Affichage initial
-renderRegistration(inscriptions);
-
-// Événements
 searchInput.addEventListener("input", filterRegistrations);
 statusFilter.addEventListener("change", filterRegistrations);
 sortBy.addEventListener("change", filterRegistrations);
+
+renderDashboard();
