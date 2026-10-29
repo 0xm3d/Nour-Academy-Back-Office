@@ -93,3 +93,89 @@ resetButton.addEventListener("click", () => {
 });
 
 renderDashboard();
+
+
+
+
+
+
+
+
+
+const searchInput = document.getElementById("search");
+const registrationsBody = document.getElementById("registrations-body");
+const registrationsCount = document.getElementById("registrations-count");
+const statusFilter = document.getElementById("status-filter");
+const sortBy = document.getElementById("sort-by");
+
+// Afficher les inscriptions dans le tableau
+function renderRegistration(liste) {
+    const lignes = liste.map((inscription) => {
+        return `
+            <tr>
+                <td class="px-4 py-3">${inscription.dossier}</td>
+                <td class="px-4 py-3">${inscription.student}</td>
+                <td class="px-4 py-3">${inscription.level}</td>
+                <td class="px-4 py-3">${inscription.course}</td>
+                <td class="px-4 py-3">${inscription.phone}</td>
+                <td class="px-4 py-3">${inscription.status}</td>
+                <td class="px-4 py-3">${inscription.date}</td>
+            </tr>
+        `;
+    });
+
+    registrationsBody.innerHTML = lignes.join("");
+    registrationsCount.textContent = `${liste.length} registrations`;
+}
+
+// Recherche + filtre Status + tri
+function filterRegistrations() {
+    const searchValue = searchInput.value.toLowerCase().trim();
+    const selectedStatus = statusFilter.value;
+    const selectedSort = sortBy.value;
+
+    // Recherche par nom ou téléphone
+    let results = inscriptions.filter((inscription) => {
+        const matchesSearch =
+            inscription.student.toLowerCase().includes(searchValue) ||
+            inscription.phone.includes(searchValue);
+
+        const matchesStatus =
+            selectedStatus === "all" ||
+            inscription.status === selectedStatus;
+
+        return matchesSearch && matchesStatus;
+    });
+
+    // Tri selon le choix de l'utilisateur
+    if (selectedSort === "name-asc") {
+        results.sort((a, b) =>
+            a.student.localeCompare(b.student)
+        );
+
+    } else if (selectedSort === "name-desc") {
+        results.sort((a, b) =>
+            b.student.localeCompare(a.student)
+        );
+
+    } else if (selectedSort === "date-desc") {
+        results.sort((a, b) =>
+            new Date(b.date) - new Date(a.date)
+        );
+
+    } else if (selectedSort === "date-asc") {
+        results.sort((a, b) =>
+            new Date(a.date) - new Date(b.date)
+        );
+    }
+
+    renderRegistration(results);
+}
+
+// Affichage initial
+renderRegistration(inscriptions);
+
+// Événements
+searchInput.addEventListener("input", filterRegistrations);
+statusFilter.addEventListener("change", filterRegistrations);
+sortBy.addEventListener("change", filterRegistrations);
