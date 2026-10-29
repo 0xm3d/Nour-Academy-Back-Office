@@ -32,5 +32,3 @@ export const inscriptions = [
   { id: 24, dossier: "SE-2025-006", student: "Hiba Alaoui", level: "Middle School", courseId: 7, course: "French — Exam Preparation", phone: "0691100998", status: "Paid", date: "2025-10-08" },
   { id: 25, dossier: "NA-2025-011", student: "Adam Zerouali", level: "High School", courseId: 10, course: "Physics-Chemistry — Common Core", phone: "0610099887", status: "Pending", date: "2025-10-10" }
 ];
-
-localStorage.setItem("inscriptions", JSON.stringify(inscriptions));
