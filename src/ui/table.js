@@ -7,7 +7,7 @@ const statusClasses = {
 };
 
 // Draw registration rows in the dashboard table.
-export function renderTable(registrations) {
+export function renderTable(registrations, showActions = true) {
     if (!body) {
         console.error("Table body not found in HTML");
         return;
@@ -26,7 +26,7 @@ export function renderTable(registrations) {
                 </span>
             </td>
             <td class="px-4 py-3 text-sm">${registration.date}</td>
-            <td class="px-4 py-3 text-center align-middle">
+            ${showActions ? `<td class="px-4 py-3 text-center align-middle">
                 <div class="flex items-center justify-center gap-[10px]">
                     <button type="button" data-action="edit" data-id="${registration.id}"
                         aria-label="Edit ${registration.student}">
@@ -37,7 +37,7 @@ export function renderTable(registrations) {
                         <i class="fa-solid fa-trash-can text-red-600 cursor-pointer" aria-hidden="true"></i>
                     </button>
                 </div>
-            </td>
+            </td>` : ""}
         </tr>
     `).join("");
 }

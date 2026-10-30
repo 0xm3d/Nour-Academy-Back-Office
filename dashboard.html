@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nour Academy | Dashboard</title>
-    <link rel="stylesheet" href="styles/styles.css">
     <script type="module" src="src/dashboard.js"></script>
 </head>
 <body>
     
 <!-- Dashboard content -->
 <main class="p-6">
+
+    <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
+        <h1 class="text-2xl font-bold text-[var(--color-primary)]">Nour Academy</h1>
+        <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
+            <a href="dashboard.html" aria-current="page" class="font-semibold underline">Dashboard</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="index.html">Parent portal</a>
+        </nav>
+    </header>
 
         <!-- Dashboard Filters - Fatima -->
         <section class="rounded-xl bg-[#f7f6ed] p-6">
@@ -82,17 +90,18 @@
         </section>
         <!-- End of Dashboard Filters -->
 
+
 <!-- Dashboard table -->
     <section>
-        <h1 class="mb-4 text-2xl font-bold">
+        <h2 class="mb-4 text-2xl font-bold">
         Registrations
-    </h1>
+    </h2>
 
     <p id="registrations-count" class="mb-4 text-sm text-gray-500">
         Loading registrations...
     </p>
 
-    <div class="overflow-x->auto rounded-xl border border-[var(--color-soft)] bg-white">
+    <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
         <table class="w-full min-w-[768px] text-left">
             <thead class="bg-[var(--color-soft)] text-xs uppercase">
                 <tr>
