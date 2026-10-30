@@ -1,28 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nour Academy | Dashboard</title>
+
     <script type="module" src="src/dashboard.js"></script>
 </head>
 
 <body>
 
-    <!-- Dashboard content -->
     <main class="p-6">
 
-    <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
-        <h1 class="text-2xl font-bold text-[var(--color-primary)]">Nour Academy</h1>
-        <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
-            <a href="dashboard.html" aria-current="page" class="font-semibold underline">Dashboard</a>
-            <a href="statistics.html">Statistics</a>
-            <a href="index.html">Parent portal</a>
-        </nav>
-    </header>
+        <!-- Header -->
+        <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
 
-        <!-- Dashboard Filters - Fatima -->
+            <h1 class="text-2xl font-bold text-[var(--color-primary)]">
+                Nour Academy
+            </h1>
+
+            <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
+                <a href="dashboard.html" aria-current="page" class="font-semibold underline">
+                    Dashboard
+                </a>
+
+                <a href="statistics.html">Statistics</a>
+                <a href="index.html">Parent portal</a>
+            </nav>
+
+        </header>
+
+
+        <!-- Dashboard Filters -->
         <section class="rounded-xl bg-[#f7f6ed] p-6">
 
             <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -35,11 +47,16 @@
                     </p>
                 </div>
 
+
                 <!-- Search, Filter and Sort -->
                 <div class="flex flex-wrap gap-3">
 
-                    <input type="search" id="search" placeholder="Search by student name or phone..."
-                        class="rounded-lg border border-gray-300 bg-white px-4 py-3">
+                    <input
+                        type="search"
+                        id="search"
+                        placeholder="Search by student name or phone..."
+                        class="rounded-lg border border-gray-300 bg-white px-4 py-3"
+                    >
 
                     <select id="status-filter" class="rounded-lg border border-gray-300 bg-white px-4 py-3">
                         <option value="all">All statuses</option>
@@ -48,7 +65,7 @@
                         <option value="Paid">Paid</option>
                     </select>
 
-                    <select id="sort-by" class="rounded-lg border border-gray-300 bg-white px-4 py-3 md:items-center">
+                    <select id="sort-by" class="rounded-lg border border-gray-300 bg-white px-4 py-3">
                         <option value="name-asc">Name: A → Z</option>
                         <option value="name-desc">Name: Z → A</option>
                         <option value="date-desc">Newest first</option>
@@ -57,74 +74,51 @@
 
                 </div>
 
+
                 <!-- Dashboard Actions -->
                 <div class="flex flex-wrap gap-3">
 
-                    <button type="button" id="reset-demo"
-                        class="rounded-lg border border-[#141097] px-5 py-3 text-sm font-medium hover:bg-[#eeeddf]">
+                    <button
+                        type="button"
+                        id="reset-demo"
+                        class="rounded-lg border border-[#141097] px-5 py-3 text-sm font-medium hover:bg-[#eeeddf]"
+                    >
                         Reset filters
                     </button>
 
-                    <button type="button" id="new-registration"
-                        class="rounded-lg bg-[#141097] px-5 py-3 text-sm font-medium text-white hover:bg-[#0a0a80]">
+                    <button
+                        type="button"
+                        id="new-registration"
+                        class="rounded-lg bg-[#141097] px-5 py-3 text-sm font-medium text-white hover:bg-[#0a0a80]"
+                    >
                         + New Registration
                     </button>
 
                 </div>
 
             </div>
+
         </section>
-        <!-- End of Dashboard Filters -->
+        <!-- End Dashboard Filters -->
 
 
-<!-- Dashboard table -->
-    <section>
-        <h2 class="mb-4 text-2xl font-bold">
-        Registrations
-    </h2>
+        <!-- Dashboard Table -->
+        <section class="mt-6">
 
-    <p id="registrations-count" class="mb-4 text-sm text-gray-500">
-        Loading registrations...
-    </p>
-
-    <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
-        <table class="w-full min-w-[768px] text-left">
-            <thead class="bg-[var(--color-soft)] text-xs uppercase">
-                <tr>
-                    <th class="px-4 py-3">File no.</th>
-                    <th class="px-4 py-3">Student</th>
-                    <th class="px-4 py-3">Level</th>
-                    <th class="px-4 py-3">Course</th>
-                    <th class="px-4 py-3">Parent phone</th>
-                    <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3">Date</th>
-                    <th class="px-4 py-3">Modifiy</th>
-                </tr>
-            </thead>
-
-            <tbody id="registrations-body"></tbody>
-        </table>
-    </div>
-    </section>
-
-    <!-- Pop up form -->
-    <dialog id="edit-registration-dialog" class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
-        <form id="edit-registration-form" class="flex flex-col gap-4">
-            <h2 class="text-xl font-bold">Edit registration</h2>
-
-            <div>
-                <label for="edit-dossier" class="mb-1 block font-medium">File number</label>
-                <input id="edit-dossier" type="text" readonly
-                    class="min-h-11 w-full rounded-lg border border-gray-300 bg-gray-100 px-3">
-            </div>
+            <h2 class="mb-4 text-2xl font-bold">
+                Registrations
+            </h2>
 
             <p id="registrations-count" class="mb-4 text-sm text-gray-500">
                 Loading registrations...
             </p>
 
-            <div class="overflow-x->auto rounded-xl border border-[var(--color-soft)] bg-white">
+            <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
+
                 <table class="w-full min-w-[768px] text-left">
+
                     <thead class="bg-[var(--color-soft)] text-xs uppercase">
+
                         <tr>
                             <th class="px-4 py-3">File no.</th>
                             <th class="px-4 py-3">Student</th>
@@ -133,16 +127,26 @@
                             <th class="px-4 py-3">Parent phone</th>
                             <th class="px-4 py-3">Status</th>
                             <th class="px-4 py-3">Date</th>
-                            <th class="px-4 py-3">Modifiy</th>
+                            <th class="px-4 py-3">Modify</th>
                         </tr>
+
                     </thead>
 
                     <tbody id="registrations-body"></tbody>
+
                 </table>
+
             </div>
+
+
             <!-- Pagination -->
             <div class="mt-4 flex items-center justify-between gap-4">
-                <button type="button" id="prev-page" class="bg-[#141097] text-amber-50 rounded-lg border px-4 py-2">
+
+                <button
+                    type="button"
+                    id="prev-page"
+                    class="rounded-lg bg-[#141097] px-4 py-2 text-white disabled:opacity-40"
+                >
                     Previous
                 </button>
 
@@ -150,164 +154,284 @@
                     Page 1
                 </p>
 
-                <button type="button" id="next-page" class="bg-[#141097] text-amber-50 rounded-lg border px-4 py-2">
+                <button
+                    type="button"
+                    id="next-page"
+                    class="rounded-lg bg-[#141097] px-4 py-2 text-white disabled:opacity-40"
+                >
                     Next
                 </button>
-            </div>
-        </section>
 
-        <!-- Pop up form -->
-        <dialog id="edit-registration-dialog"
-            class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
+            </div>
+
+        </section>
+        <!-- End Dashboard Table -->
+
+
+        <!-- Edit Registration Dialog -->
+        <dialog
+            id="edit-registration-dialog"
+            class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl"
+        >
+
             <form id="edit-registration-form" class="flex flex-col gap-4">
+
                 <h2 class="text-xl font-bold">Edit registration</h2>
 
-                <div>
-                    <label for="edit-dossier" class="mb-1 block font-medium">File number</label>
-                    <input id="edit-dossier" type="text" readonly
-                        class="min-h-11 w-full rounded-lg border border-gray-300 bg-gray-100 px-3">
-                </div>
 
                 <div>
-                    <label for="edit-student" class="mb-1 block font-medium">Student name</label>
-                    <input id="edit-student" type="text" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                    <label for="edit-dossier" class="mb-1 block font-medium">
+                        File number
+                    </label>
+
+                    <input
+                        id="edit-dossier"
+                        type="text"
+                        readonly
+                        class="min-h-11 w-full rounded-lg border border-gray-300 bg-gray-100 px-3"
+                    >
                 </div>
 
-                <div>
-                    <label for="edit-phone" class="mb-1 block font-medium">Parent phone</label>
-                    <input id="edit-phone" type="tel" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-                </div>
 
                 <div>
-                    <label for="edit-level" class="mb-1 block font-medium">Level</label>
-                    <select id="edit-level" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                    <label for="edit-student" class="mb-1 block font-medium">
+                        Student name
+                    </label>
+
+                    <input
+                        id="edit-student"
+                        type="text"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="edit-phone" class="mb-1 block font-medium">
+                        Parent phone
+                    </label>
+
+                    <input
+                        id="edit-phone"
+                        type="tel"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="edit-level" class="mb-1 block font-medium">
+                        Level
+                    </label>
+
+                    <select
+                        id="edit-level"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                         <option value="Primary">Primary</option>
                         <option value="Middle School">Middle School</option>
                         <option value="High School">High School</option>
                     </select>
                 </div>
 
-                <div>
-                    <label for="edit-course" class="mb-1 block font-medium">Course</label>
-                    <select id="edit-course" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"></select>
-                </div>
 
                 <div>
-                    <label for="edit-status" class="mb-1 block font-medium">Status</label>
-                    <select id="edit-status" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                    <label for="edit-course" class="mb-1 block font-medium">
+                        Course
+                    </label>
+
+                    <select
+                        id="edit-course"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    ></select>
+                </div>
+
+
+                <div>
+                    <label for="edit-status" class="mb-1 block font-medium">
+                        Status
+                    </label>
+
+                    <select
+                        id="edit-status"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                         <option value="Pending">Pending</option>
                         <option value="Validated">Validated</option>
                         <option value="Paid">Paid</option>
                     </select>
                 </div>
 
+
                 <div>
-                    <label for="edit-date" class="mb-1 block font-medium">Registration date</label>
-                    <input id="edit-date" type="date" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                    <label for="edit-date" class="mb-1 block font-medium">
+                        Registration date
+                    </label>
+
+                    <input
+                        id="edit-date"
+                        type="date"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                 </div>
+
 
                 <div class="flex justify-end gap-3">
-                    <button type="button" id="cancel-registration-edit" class="min-h-11 rounded-lg border px-4">
+
+                    <button
+                        type="button"
+                        id="cancel-registration-edit"
+                        class="min-h-11 rounded-lg border px-4"
+                    >
                         Cancel
                     </button>
-                    <button type="submit" class="min-h-11 rounded-lg bg-[#141097] px-4 text-white">
+
+                    <button
+                        type="submit"
+                        class="min-h-11 rounded-lg bg-[#141097] px-4 text-white"
+                    >
                         Save changes
                     </button>
-                </div>
-            </form>
-        </dialog>
-        <!--pop up new registration-->
 
-        <dialog id="new-registration-dialog"
-            class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
+                </div>
+
+            </form>
+
+        </dialog>
+        <!-- End Edit Registration Dialog -->
+
+
+        <!-- New Registration Dialog -->
+        <dialog
+            id="new-registration-dialog"
+            class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl"
+        >
 
             <form id="new-registration-form" class="flex flex-col gap-4">
 
                 <h2 class="text-xl font-bold">New Registration</h2>
 
+
                 <div>
                     <label for="new-student" class="mb-1 block font-medium">
                         Student name
                     </label>
-                    <input id="new-student" type="text" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+
+                    <input
+                        id="new-student"
+                        type="text"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                 </div>
+
 
                 <div>
                     <label for="new-phone" class="mb-1 block font-medium">
                         Parent phone
                     </label>
-                    <input id="new-phone" type="tel" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+
+                    <input
+                        id="new-phone"
+                        type="tel"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                 </div>
+
 
                 <div>
                     <label for="new-level" class="mb-1 block font-medium">
                         Level
                     </label>
-                    <select id="new-level" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+
+                    <select
+                        id="new-level"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
                         <option value="Primary">Primary</option>
                         <option value="Middle School">Middle School</option>
                         <option value="High School">High School</option>
                     </select>
                 </div>
 
+
                 <div>
+                    <label for="new-course" class="mb-1 block font-medium">
+                        Course
+                    </label>
 
-                    <label for="new-course" class="mb-1 block font-medium">Course</label>
-                    <select id="new-course" required
-                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"></select>
+                    <select
+                        id="new-course"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    ></select>
+                </div>
 
 
-                    <div>
-                        <label for="new-status" class="mb-1 block font-medium">
-                            Status
-                        </label>
-                        <select id="new-status" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-                            <option value="Pending">Pending</option>
-                            <option value="Validated">Validated</option>
-                            <option value="Paid">Paid</option>
-                        </select>
-                    </div>
+                <div>
+                    <label for="new-status" class="mb-1 block font-medium">
+                        Status
+                    </label>
 
-                    <div>
-                        <label for="new-date" class="mb-1 block font-medium">
-                            Registration date
-                        </label>
-                        <input id="new-date" type="date" required
-                            class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-                    </div>
+                    <select
+                        id="new-status"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
+                        <option value="Pending">Pending</option>
+                        <option value="Validated">Validated</option>
+                        <option value="Paid">Paid</option>
+                    </select>
+                </div>
 
-                    <div class="flex justify-end gap-3">
-                        <button type="button" id="cancel-new-registration" class="min-h-11 rounded-lg border px-4">
-                            Cancel
-                        </button>
 
-                        <button type="submit" class="min-h-11 rounded-lg bg-[#141097] px-4 text-white">
-                            Add registration
-                        </button>
-                    </div>
+                <div>
+                    <label for="new-date" class="mb-1 block font-medium">
+                        Registration date
+                    </label>
+
+                    <input
+                        id="new-date"
+                        type="date"
+                        required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3"
+                    >
+                </div>
+
+
+                <div class="flex justify-end gap-3">
+
+                    <button
+                        type="button"
+                        id="cancel-new-registration"
+                        class="min-h-11 rounded-lg border px-4"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="min-h-11 rounded-lg bg-[#141097] px-4 text-white"
+                    >
+                        Add registration
+                    </button>
+
+                </div>
 
             </form>
+
         </dialog>
-
-
-
-
-
-
-
-
-
-
-
+        <!-- End New Registration Dialog -->
 
     </main>
 
 </body>
-
 </html>
