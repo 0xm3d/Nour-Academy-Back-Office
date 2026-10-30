@@ -62,7 +62,7 @@
 
                     <button type="button" id="reset-demo"
                         class="rounded-lg border border-[#141097] px-5 py-3 text-sm font-medium hover:bg-[#eeeddf]">
-                        Reset demo data
+                        Reset filters
                     </button>
 
                     <button type="button" id="new-registration"
@@ -140,6 +140,20 @@
                     <tbody id="registrations-body"></tbody>
                 </table>
             </div>
+            <!-- Pagination -->
+            <div class="mt-4 flex items-center justify-between gap-4">
+                <button type="button" id="prev-page" class="bg-[#141097] text-amber-50 rounded-lg border px-4 py-2">
+                    Previous
+                </button>
+
+                <p id="page-info" class="text-sm text-gray-600">
+                    Page 1
+                </p>
+
+                <button type="button" id="next-page" class="bg-[#141097] text-amber-50 rounded-lg border px-4 py-2">
+                    Next
+                </button>
+            </div>
         </section>
 
         <!-- Pop up form -->
@@ -208,82 +222,78 @@
         </dialog>
         <!--pop up new registration-->
 
-<dialog id="new-registration-dialog"
-    class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
+        <dialog id="new-registration-dialog"
+            class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
 
-    <form id="new-registration-form" class="flex flex-col gap-4">
+            <form id="new-registration-form" class="flex flex-col gap-4">
 
-        <h2 class="text-xl font-bold">New Registration</h2>
+                <h2 class="text-xl font-bold">New Registration</h2>
 
-        <div>
-            <label for="new-student" class="mb-1 block font-medium">
-                Student name
-            </label>
-            <input id="new-student" type="text" required
-                class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-        </div>
+                <div>
+                    <label for="new-student" class="mb-1 block font-medium">
+                        Student name
+                    </label>
+                    <input id="new-student" type="text" required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                </div>
 
-        <div>
-            <label for="new-phone" class="mb-1 block font-medium">
-                Parent phone
-            </label>
-            <input id="new-phone" type="tel" required
-                class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-        </div>
+                <div>
+                    <label for="new-phone" class="mb-1 block font-medium">
+                        Parent phone
+                    </label>
+                    <input id="new-phone" type="tel" required
+                        class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                </div>
 
-        <div>
-            <label for="new-level" class="mb-1 block font-medium">
-                Level
-            </label>
-            <select id="new-level" required
-                class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-                <option value="Primary">Primary</option>
-                <option value="Middle School">Middle School</option>
-                <option value="High School">High School</option>
-            </select>
-        </div>
+                <div>
+                    <label for="new-level" class="mb-1 block font-medium">
+                        Level
+                    </label>
+                    <select id="new-level" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                        <option value="Primary">Primary</option>
+                        <option value="Middle School">Middle School</option>
+                        <option value="High School">High School</option>
+                    </select>
+                </div>
 
-        <div>
-        
+                <div>
+
                     <label for="new-course" class="mb-1 block font-medium">Course</label>
                     <select id="new-course" required
                         class="min-h-11 w-full rounded-lg border border-gray-300 px-3"></select>
-        
 
-        <div>
-            <label for="new-status" class="mb-1 block font-medium">
-                Status
-            </label>
-            <select id="new-status" required
-                class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-                <option value="Pending">Pending</option>
-                <option value="Validated">Validated</option>
-                <option value="Paid">Paid</option>
-            </select>
-        </div>
 
-        <div>
-            <label for="new-date" class="mb-1 block font-medium">
-                Registration date
-            </label>
-            <input id="new-date" type="date" required
-                class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
-        </div>
+                    <div>
+                        <label for="new-status" class="mb-1 block font-medium">
+                            Status
+                        </label>
+                        <select id="new-status" required class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                            <option value="Pending">Pending</option>
+                            <option value="Validated">Validated</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                    </div>
 
-        <div class="flex justify-end gap-3">
-            <button type="button" id="cancel-new-registration"
-                class="min-h-11 rounded-lg border px-4">
-                Cancel
-            </button>
+                    <div>
+                        <label for="new-date" class="mb-1 block font-medium">
+                            Registration date
+                        </label>
+                        <input id="new-date" type="date" required
+                            class="min-h-11 w-full rounded-lg border border-gray-300 px-3">
+                    </div>
 
-            <button type="submit"
-                class="min-h-11 rounded-lg bg-[#141097] px-4 text-white">
-                Add registration
-            </button>
-        </div>
+                    <div class="flex justify-end gap-3">
+                        <button type="button" id="cancel-new-registration" class="min-h-11 rounded-lg border px-4">
+                            Cancel
+                        </button>
 
-    </form>
-</dialog>
+                        <button type="submit" class="min-h-11 rounded-lg bg-[#141097] px-4 text-white">
+                            Add registration
+                        </button>
+                    </div>
+
+            </form>
+        </dialog>
 
 
 
