@@ -20,7 +20,62 @@ const dateInput = document.getElementById("edit-date");
 const searchInput = document.getElementById("search");
 const statusFilter = document.getElementById("status-filter");
 const sortBy = document.getElementById("sort-by");
+const newRegistrationButton = document.getElementById("new-registration");
+const newRegistrationDialog = document.getElementById("new-registration-dialog");
+const cancelNewRegistrationButton = document.getElementById("cancel-new-registration");
+const newCourseInput = document.getElementById("new-course");
+const newRegistrationForm = document.getElementById("new-registration-form");
+const newStudentInput = document.getElementById("new-student");
+const newPhoneInput = document.getElementById("new-phone");
+const newStatusInput = document.getElementById("new-status");
+const newLevelInput = document.getElementById("new-level");
+const newDateInput = document.getElementById("new-date");
 
+// Open the form
+newRegistrationButton.addEventListener("click", () => {
+    newRegistrationDialog.showModal();
+});
+
+// Close the form
+cancelNewRegistrationButton.addEventListener("click", () => {
+    newRegistrationDialog.close();
+});
+
+// Add courses to the select
+newCourseInput.innerHTML = courses.map((course) =>
+    `<option value="${course.id}">${course.title}</option>`
+).join("");
+
+// Save registration
+newRegistrationForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const selectedCourse = courses.find(
+        (course) => course.id === Number(newCourseInput.value)
+    );
+
+    if (!selectedCourse) return;
+
+    const newRegistration = {
+        id: Date.now(),
+        dossier: `NA-${new Date().getFullYear()}-${Date.now()}`,
+        student: newStudentInput.value.trim(),
+        phone: newPhoneInput.value.trim(),
+        level: newLevelInput.value,
+        courseId: selectedCourse.id,
+        course: selectedCourse.title,
+        status: newStatusInput.value,
+        date: newDateInput.value
+    };
+
+    registrations.push(newRegistration);
+
+    saveInscriptions(registrations);
+    renderDashboard();
+
+    newRegistrationForm.reset();
+    newRegistrationDialog.close();
+});
 let registrations = loadInscriptions();
 let editingRegistrationId = null;
 
@@ -34,7 +89,11 @@ function renderDashboard() {
     count.textContent = `${registrations.length} registrations`;
     summary.textContent = `${registrations.length} registrations across the 3 centers`;
     filterRegistrations();
+    console.log("Search:", searchValue);
+    console.log("Names:", registrations.map(r => r.student));
+    console.log("Selected status:", selectedStatus);
 }
+
 
 // Open the form with the selected student's current registration data.
 body.addEventListener("click", (event) => {
@@ -111,8 +170,8 @@ function filterRegistrations() {
     // Recherche par nom ou téléphone
     let results = registrations.filter((inscription) => {
         const matchesSearch =
-            inscription.student.toLowerCase().includes(searchValue) ||
-            inscription.phone.includes(searchValue);
+            (inscription.student || "").toLowerCase().includes(searchValue) ||
+            String(inscription.phone || "").includes(searchValue);
 
         const matchesStatus =
             selectedStatus === "all" ||
