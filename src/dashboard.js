@@ -34,22 +34,22 @@ const newStatusInput = document.getElementById("new-status");
 const newLevelInput = document.getElementById("new-level");
 const newDateInput = document.getElementById("new-date");
 
-// Open the form
+
 newRegistrationButton.addEventListener("click", () => {
     newRegistrationDialog.showModal();
 });
 
-// Close the form
+
 cancelNewRegistrationButton.addEventListener("click", () => {
     newRegistrationDialog.close();
 });
 
-// Add courses to the select
+
 newCourseInput.innerHTML = courses.map((course) =>
     `<option value="${course.id}">${course.title}</option>`
 ).join("");
 
-// Save registration
+
 newRegistrationForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -79,19 +79,19 @@ newRegistrationForm.addEventListener("submit", (event) => {
     newRegistrationForm.reset();
     newRegistrationDialog.close();
 });
-//pagination- 10 page pour tout page
+//pagination de 10 eleve pour tout page
 let currentPage=1
 const itemsPerPage=10
 
 let registrations = loadInscriptions();
 let editingRegistrationId = null;
 
-// Add available courses to the edit form.
+
 courseInput.innerHTML = courses.map((course) =>
     `<option value="${course.id}">${course.title}</option>`
 ).join("");
 
-// Refresh the table and registration counts.
+
 function renderDashboard() {
     count.textContent = `${registrations.length} registrations`;
     summary.textContent = `${registrations.length} registrations across the 3 centers`;
@@ -100,7 +100,7 @@ function renderDashboard() {
 }
 
 
-// Open the form with the selected student's current registration data.
+
 body.addEventListener("click", (event) => {
     //delete registration
     const deleteButton=event.target.closest("[data-action='delete']")
