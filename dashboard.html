@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nour Academy | Dashboard</title>
-    <link rel="stylesheet" href="styles/styles.css">
     <script type="module" src="src/dashboard.js"></script>
 </head>
 
@@ -13,6 +12,15 @@
 
     <!-- Dashboard content -->
     <main class="p-6">
+
+    <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
+        <h1 class="text-2xl font-bold text-[var(--color-primary)]">Nour Academy</h1>
+        <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
+            <a href="dashboard.html" aria-current="page" class="font-semibold underline">Dashboard</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="index.html">Parent portal</a>
+        </nav>
+    </header>
 
         <!-- Dashboard Filters - Fatima -->
         <section class="rounded-xl bg-[#f7f6ed] p-6">
@@ -68,11 +76,47 @@
         </section>
         <!-- End of Dashboard Filters -->
 
-        <!-- Dashboard table -->
-        <section>
-            <h1 class="mb-4 text-2xl font-bold">
-                Registrations
-            </h1>
+
+<!-- Dashboard table -->
+    <section>
+        <h2 class="mb-4 text-2xl font-bold">
+        Registrations
+    </h2>
+
+    <p id="registrations-count" class="mb-4 text-sm text-gray-500">
+        Loading registrations...
+    </p>
+
+    <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
+        <table class="w-full min-w-[768px] text-left">
+            <thead class="bg-[var(--color-soft)] text-xs uppercase">
+                <tr>
+                    <th class="px-4 py-3">File no.</th>
+                    <th class="px-4 py-3">Student</th>
+                    <th class="px-4 py-3">Level</th>
+                    <th class="px-4 py-3">Course</th>
+                    <th class="px-4 py-3">Parent phone</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Modifiy</th>
+                </tr>
+            </thead>
+
+            <tbody id="registrations-body"></tbody>
+        </table>
+    </div>
+    </section>
+
+    <!-- Pop up form -->
+    <dialog id="edit-registration-dialog" class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl p-6 shadow-xl">
+        <form id="edit-registration-form" class="flex flex-col gap-4">
+            <h2 class="text-xl font-bold">Edit registration</h2>
+
+            <div>
+                <label for="edit-dossier" class="mb-1 block font-medium">File number</label>
+                <input id="edit-dossier" type="text" readonly
+                    class="min-h-11 w-full rounded-lg border border-gray-300 bg-gray-100 px-3">
+            </div>
 
             <p id="registrations-count" class="mb-4 text-sm text-gray-500">
                 Loading registrations...

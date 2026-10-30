@@ -1,3 +1,4 @@
+import "../styles/styles.css";
 import { courses } from "./data/courses.js";
 import { loadInscriptions, resetDemoData, saveInscriptions } from "./storage.js";
 import { renderTable } from "./ui/table.js";

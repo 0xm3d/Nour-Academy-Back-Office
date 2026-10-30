@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nour Academy | Statistics</title>
+    <script type="module" src="src/statistics.js"></script>
+</head>
+<body class="bg-[var(--color-background)] font-[var(--font-family)]">
+    <main class="p-6">
+        <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
+            <h1 class="text-2xl font-bold text-[var(--color-primary)]">Nour Academy</h1>
+            <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="statistics.html" aria-current="page" class="font-semibold underline">Statistics</a>
+                <a href="index.html">Parent portal</a>
+            </nav>
+        </header>
+
+        <section aria-labelledby="statistics-heading">
+            <h2 id="statistics-heading" class="mb-4 text-2xl font-bold">Statistics</h2>
+
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+                <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                    <h3 class="text-sm text-gray-600">Registrations</h3>
+                    <p id="stat-total" class="mt-2 text-2xl font-bold">0</p>
+                </article>
+                <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                    <h3 class="text-sm text-gray-600">Pending</h3>
+                    <p id="stat-pending" class="mt-2 text-2xl font-bold">0</p>
+                </article>
+                <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                    <h3 class="text-sm text-gray-600">Validated</h3>
+                    <p id="stat-validated" class="mt-2 text-2xl font-bold">0</p>
+                </article>
+                <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                    <h3 class="text-sm text-gray-600">Paid</h3>
+                    <p id="stat-paid" class="mt-2 text-2xl font-bold">0</p>
+                </article>
+                <article class="col-span-2 rounded-xl border border-[var(--color-soft)] bg-white p-4 md:col-span-1">
+                    <h3 class="text-sm text-gray-600">Monthly revenue collected</h3>
+                    <p id="stat-revenue" class="mt-2 text-2xl font-bold">0 MAD</p>
+                </article>
+            </div>
+
+            <div class="mt-4 rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                <h3 class="mb-2 font-semibold">Occupancy per course (maximum 15)</h3>
+                <ul id="occupancy-list" class="text-sm"></ul>
+            </div>
+        </section>
+
+        <section aria-labelledby="registrations-heading" class="mt-8">
+            <h2 id="registrations-heading" class="mb-4 text-2xl font-bold">Registrations</h2>
+            <p id="registrations-count" class="mb-4 text-sm text-gray-500">Loading registrations...</p>
+
+            <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
+                <table class="w-full min-w-[768px] text-left">
+                    <thead class="bg-[var(--color-soft)] text-xs uppercase">
+                        <tr>
+                            <th class="px-4 py-3">File no.</th>
+                            <th class="px-4 py-3">Student</th>
+                            <th class="px-4 py-3">Level</th>
+                            <th class="px-4 py-3">Course</th>
+                            <th class="px-4 py-3">Parent phone</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrations-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
