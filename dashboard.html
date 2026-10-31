@@ -11,28 +11,29 @@
     <script type="module" src="src/dashboard.js"></script>
 </head>
 
-<body>
+<body class="bg-[var(--color-background)] font-[var(--font-family)] text-[var(--color-primary)]">
 
-    <main class="p-6">
-
-        <!-- Header -->
-        <header class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-soft)] pb-4">
-
-            <h1 class="text-2xl font-bold text-[var(--color-primary)]">
-                Nour Academy
-            </h1>
-
-            <nav aria-label="Back office" class="flex gap-5 text-sm text-[var(--color-primary)]">
-                <a href="dashboard.html" aria-current="page" class="font-semibold underline">
-                    Dashboard
+    <main class="min-h-screen md:flex">
+        <aside class="border-b border-[var(--color-soft)] bg-white p-4 md:min-h-screen md:w-60 md:border-b-0 md:border-r">
+            <h1 class="mb-4 text-2xl font-bold">Nour Academy</h1>
+            <nav aria-label="Back office" class="flex gap-2 md:flex-col">
+                <button type="button" data-view="registrations" aria-current="page"
+                    class="min-h-11 rounded-lg bg-[var(--color-primary)] px-4 text-left text-sm text-white">
+                    Registrations
+                </button>
+                <button type="button" data-view="statistics"
+                    class="min-h-11 rounded-lg px-4 text-left text-sm hover:bg-[var(--color-background)]">
+                    Statistics
+                </button>
+                <a href="index.html"
+                    class="flex min-h-11 items-center rounded-lg px-4 text-sm hover:bg-[var(--color-background)]">
+                    Parent portal
                 </a>
-
-                <a href="statistics.html">Statistics</a>
-                <a href="index.html">Parent portal</a>
             </nav>
+        </aside>
 
-        </header>
-
+        <div class="min-w-0 flex-1 p-4 md:p-6">
+            <section id="registrations-view" aria-labelledby="registrations-heading">
 
         <!-- Dashboard Filters -->
         <section class="rounded-xl bg-[#f7f6ed] p-6">
@@ -40,7 +41,7 @@
             <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
 
                 <div>
-                    <h1 class="text-3xl font-bold">Registrations</h1>
+                    <h2 id="registrations-heading" class="text-3xl font-bold">Registrations</h2>
 
                     <p id="registrations-summary" class="mt-1 text-sm text-[#0a0ab5]">
                         Loading registrations...
@@ -167,6 +168,39 @@
         </section>
         <!-- End Dashboard Table -->
 
+            </section>
+
+            <section id="statistics-view" class="hidden" aria-labelledby="statistics-heading">
+                <h2 id="statistics-heading" class="mb-5 text-3xl font-bold">Statistics</h2>
+
+                <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+                    <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                        <h3 class="text-sm text-gray-600">Registrations</h3>
+                        <p id="stat-total" class="mt-2 text-2xl font-bold">0</p>
+                    </article>
+                    <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                        <h3 class="text-sm text-gray-600">Pending</h3>
+                        <p id="stat-pending" class="mt-2 text-2xl font-bold">0</p>
+                    </article>
+                    <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                        <h3 class="text-sm text-gray-600">Validated</h3>
+                        <p id="stat-validated" class="mt-2 text-2xl font-bold">0</p>
+                    </article>
+                    <article class="rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                        <h3 class="text-sm text-gray-600">Paid</h3>
+                        <p id="stat-paid" class="mt-2 text-2xl font-bold">0</p>
+                    </article>
+                    <article class="col-span-2 rounded-xl border border-[var(--color-soft)] bg-white p-4 md:col-span-1">
+                        <h3 class="text-sm text-gray-600">Monthly revenue collected</h3>
+                        <p id="stat-revenue" class="mt-2 text-2xl font-bold">0 MAD</p>
+                    </article>
+                </div>
+
+                <div class="mt-4 rounded-xl border border-[var(--color-soft)] bg-white p-4">
+                    <h3 class="mb-2 font-semibold">Occupancy per course (maximum 15)</h3>
+                    <ul id="occupancy-list" class="text-sm"></ul>
+                </div>
+            </section>
 
         <!-- Edit Registration Dialog -->
         <dialog
@@ -431,6 +465,7 @@
         </dialog>
         <!-- End New Registration Dialog -->
 
+        </div>
     </main>
 
 </body>

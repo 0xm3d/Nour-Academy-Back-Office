@@ -1,4 +1,7 @@
 // grab the form fields
+import { courses } from "./data/courses.js";
+import { loadInscriptions, saveInscriptions } from "./storage.js";
+
 let form = document.getElementById("enroll-form");
 let parentName = document.getElementById("parent-name");
 let email = document.getElementById("email");
@@ -93,25 +96,51 @@ form.addEventListener("submit", function (event) {
   if (!checkConsent()) return consent.focus();
 
   // no course selected, stop here
-  let count = Number(document.getElementById("cart-count").textContent);
-  if (count === 0) {
+  let selectedCourseIds = Array.from(
+    document.querySelectorAll("#cart-list [data-action='remove']")
+  ).map((button) => Number(button.dataset.id));
+  if (selectedCourseIds.length === 0) {
     selectionError.textContent = "Add at least one course to your selection before submitting the enrollment.";
     document.getElementById("courses").scrollIntoView({ behavior: "smooth" });
     return;
   }
 
-  // build the confirmation message
+  let selectedCourses = selectedCourseIds.map((id) =>
+    courses.find((course) => course.id === id)
+  );
+  if (selectedCourses.some((course) => !course)) {
+    selectionError.textContent = "A selected course could not be found. Please update your selection.";
+    return;
+  }
+
   let student = studentName.value.trim();
   let level = studentLevel.options[studentLevel.selectedIndex].text;
-  let selectedCourses = [];
-  let courseNames = document.querySelectorAll("#cart-list p.text-sm.font-semibold");
-  for (let i = 0; i < courseNames.length; i++) {
-    selectedCourses.push(courseNames[i].textContent);
-  }
-  let total = document.getElementById("cart-total").textContent;
-  let registrationNumber = "NA-" + Date.now();
+  let registrationNumber = "NA-" + new Date().getFullYear() + "-" + Date.now();
+  let registrations = loadInscriptions();
+  let newRegistrations = selectedCourses.map((course, index) => ({
+    id: Date.now() + index,
+    dossier: registrationNumber,
+    parentName: parentName.value.trim(),
+    email: email.value.trim(),
+    student: student,
+    level: level,
+    courseId: course.id,
+    course: course.title,
+    phone: phone.value.trim(),
+    status: "Pending",
+    date: new Date().toISOString().slice(0, 10)
+  }));
 
-  summaryText.textContent = "Enrollment " + registrationNumber + " confirmed. Student: " + student + " (" + level + "). Courses: " + selectedCourses.join(", ") + ". Total: " + total + " MAD / month.";
+  try {
+    saveInscriptions([...registrations, ...newRegistrations]);
+  } catch (error) {
+    console.error("Could not save the parent registration.", error);
+    selectionError.textContent = "Your registration could not be saved. Please try again.";
+    return;
+  }
+
+  let total = selectedCourses.reduce((sum, course) => sum + course.price, 0);
+  summaryText.textContent = "Enrollment " + registrationNumber + " confirmed. Student: " + student + " (" + level + "). Courses: " + selectedCourses.map((course) => course.title).join(", ") + ". Total: " + total + " MAD / month.";
   summary.classList.remove("hidden");
 
   // empty the form and remove the red/green borders

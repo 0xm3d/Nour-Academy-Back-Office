@@ -1,6 +1,7 @@
 import "../styles/styles.css";
 import { courses } from "./data/courses.js";
 import { loadInscriptions, resetDemoData, saveInscriptions } from "./storage.js";
+import { calculateStatistics } from "./utils.js";
 import { renderTable } from "./ui/table.js";
 
 const body = document.getElementById("registrations-body");
@@ -96,10 +97,39 @@ function renderDashboard() {
     count.textContent = `${registrations.length} registrations`;
     summary.textContent = `${registrations.length} registrations across the 3 centers`;
     filterRegistrations();
-    
+    updateStatistics();
 }
 
+function updateStatistics() {
+    const statistics = calculateStatistics(registrations, courses);
+    document.getElementById("stat-total").textContent = statistics.total;
+    document.getElementById("stat-pending").textContent = statistics.statusCounts.Pending;
+    document.getElementById("stat-validated").textContent = statistics.statusCounts.Validated;
+    document.getElementById("stat-paid").textContent = statistics.statusCounts.Paid;
+    document.getElementById("stat-revenue").textContent =
+        `${new Intl.NumberFormat("en-US").format(statistics.revenue)} MAD`;
+    document.getElementById("occupancy-list").innerHTML = statistics.occupancy.map((course) => `
+        <li class="flex justify-between gap-4 border-b border-[var(--color-soft)] py-2">
+            <span>${course.title}</span>
+            <span class="shrink-0">${course.students} / 15 (${course.percentage}%)</span>
+        </li>
+    `).join("");
+}
 
+document.querySelectorAll("[data-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+        const showStatistics = button.dataset.view === "statistics";
+        document.getElementById("registrations-view").classList.toggle("hidden", showStatistics);
+        document.getElementById("statistics-view").classList.toggle("hidden", !showStatistics);
+
+        document.querySelectorAll("[data-view]").forEach((item) => {
+            const active = item === button;
+            item.setAttribute("aria-current", active ? "page" : "false");
+            item.classList.toggle("bg-[var(--color-primary)]", active);
+            item.classList.toggle("text-white", active);
+        });
+    });
+});
 
 body.addEventListener("click", (event) => {
     //delete registration
@@ -275,6 +305,12 @@ statusFilter.addEventListener("change", () => {
 sortBy.addEventListener("change", () => {
     currentPage = 1;
     filterRegistrations();
+});
+
+window.addEventListener("storage", (event) => {
+    if (event.key !== "nour_inscriptions") return;
+    registrations = loadInscriptions();
+    renderDashboard();
 });
 
 
