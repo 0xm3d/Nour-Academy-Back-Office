@@ -6,6 +6,8 @@ import { renderTable } from "./ui/table.js";
 
 const body = document.getElementById("registrations-body");
 const count = document.getElementById("registrations-count");
+const statisticsRegistrationsBody = document.getElementById("statistics-registrations-body");
+const statisticsRegistrationsCount = document.getElementById("statistics-registrations-count");
 const summary = document.getElementById("registrations-summary");
 const resetButton = document.getElementById("reset-demo");
 const editDialog = document.getElementById("edit-registration-dialog");
@@ -102,6 +104,8 @@ function renderDashboard() {
 
 function updateStatistics() {
     const statistics = calculateStatistics(registrations, courses);
+    statisticsRegistrationsCount.textContent = `${registrations.length} registrations`;
+    renderTable(registrations, false, statisticsRegistrationsBody);
     document.getElementById("stat-total").textContent = statistics.total;
     document.getElementById("stat-pending").textContent = statistics.statusCounts.Pending;
     document.getElementById("stat-validated").textContent = statistics.statusCounts.Validated;

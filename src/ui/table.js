@@ -7,13 +7,13 @@ const statusClasses = {
 };
 
 // Draw registration rows in the dashboard table.
-export function renderTable(registrations, showActions = true) {
-    if (!body) {
+export function renderTable(registrations, showActions = true, targetBody = body) {
+    if (!targetBody) {
         console.error("Table body not found in HTML");
         return;
     }
 
-    body.innerHTML = registrations.map((registration) => `
+    targetBody.innerHTML = registrations.map((registration) => `
         <tr class="border-b border-[var(--color-soft)]">
             <td class="px-4 py-3 text-sm font-semibold">${registration.dossier}</td>
             <td class="px-4 py-3 text-sm">${registration.student}</td>
