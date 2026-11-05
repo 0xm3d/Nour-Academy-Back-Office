@@ -200,6 +200,28 @@
                     <h3 class="mb-2 font-semibold">Occupancy per course (maximum 15)</h3>
                     <ul id="occupancy-list" class="text-sm"></ul>
                 </div>
+
+                <section aria-labelledby="statistics-registrations-heading" class="mt-8">
+                    <h3 id="statistics-registrations-heading" class="mb-4 text-2xl font-bold">Registrations</h3>
+                    <p id="statistics-registrations-count" class="mb-4 text-sm text-gray-500">Loading registrations...</p>
+
+                    <div class="overflow-x-auto rounded-xl border border-[var(--color-soft)] bg-white">
+                        <table class="w-full min-w-[768px] text-left">
+                            <thead class="bg-[var(--color-soft)] text-xs uppercase">
+                                <tr>
+                                    <th class="px-4 py-3">File no.</th>
+                                    <th class="px-4 py-3">Student</th>
+                                    <th class="px-4 py-3">Level</th>
+                                    <th class="px-4 py-3">Course</th>
+                                    <th class="px-4 py-3">Parent phone</th>
+                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statistics-registrations-body"></tbody>
+                        </table>
+                    </div>
+                </section>
             </section>
 
         <!-- Edit Registration Dialog -->
